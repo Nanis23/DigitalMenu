@@ -1,4 +1,7 @@
 package com.MenuBackend.MenuBackend.DTO;
 
-public class UserDto {
+import lombok.Data;
+
+@Data
+public class UserDTO {
 }
