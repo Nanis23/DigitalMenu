@@ -1,6 +1,6 @@
 package com.MenuBackend.MenuBackend.services.User;
 
-import com.MenuBackend.MenuBackend.DTO.RegisterUserDTO;
+import com.MenuBackend.MenuBackend.DTO.UserActionsDTO;
 import com.MenuBackend.MenuBackend.DTO.UserDTO;
 import com.MenuBackend.MenuBackend.entity.User;
 import com.MenuBackend.MenuBackend.enums.UserRoles;
@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public UserDTO createUser(RegisterUserDTO registerUserDTO) {
+    public UserDTO createUser(UserActionsDTO registerUserDTO) {
         User user = new User();
         user.setUsername(registerUserDTO.getUsername());
         user.setEmail(registerUserDTO.getEmail());
@@ -68,10 +68,40 @@ public class UserService implements UserDetailsService {
         return dto;
     }
 
+    public void deleteUser(Long uid){
+        userRepository.deleteById(uid);
+    }
+
+
+
     public boolean userUsernameExists(String username) {
         return userRepository.findFirstByUsername(username).isPresent();
     }
 
+    public UserDTO updateUser(Long uid, UserActionsDTO updateUserDTO) {
+        User user= userRepository.findById(uid)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (updateUserDTO.getUsername() != null) {
+            user.setUsername(updateUserDTO.getUsername());
+        }
+
+        if (updateUserDTO.getEmail() != null) {
+            user.setEmail(updateUserDTO.getEmail());
+        }
+
+        if (updateUserDTO.getPassword() != null){
+            user.setPassword(new BCryptPasswordEncoder().encode(updateUserDTO.getPassword()));
+        }
+
+        if (updateUserDTO.getProfilePic() != null){
+            user.setProfilePic(updateUserDTO.getProfilePic());
+        }
+
+        User updatedUser= userRepository.save(user);
+
+        return mapToDTO(updatedUser);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -80,7 +110,5 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void deleteUser(Long uid){
-        userRepository.deleteById(uid);
-    }
+
 }

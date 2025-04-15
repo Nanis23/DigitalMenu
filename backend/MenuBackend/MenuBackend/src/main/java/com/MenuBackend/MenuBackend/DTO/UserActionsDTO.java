@@ -3,7 +3,7 @@ package com.MenuBackend.MenuBackend.DTO;
 import lombok.Data;
 
 @Data
-public class RegisterUserDTO {
+public class UserActionsDTO {
 
     private String username;
 

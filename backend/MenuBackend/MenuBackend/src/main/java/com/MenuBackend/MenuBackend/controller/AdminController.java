@@ -1,6 +1,6 @@
 package com.MenuBackend.MenuBackend.controller;
 
-import com.MenuBackend.MenuBackend.DTO.RegisterUserDTO;
+import com.MenuBackend.MenuBackend.DTO.UserActionsDTO;
 import com.MenuBackend.MenuBackend.DTO.UserDTO;
 import com.MenuBackend.MenuBackend.services.User.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,8 @@ public class AdminController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registrationRequest(@RequestBody RegisterUserDTO registerUserDTO) {
+    @PostMapping("/registerUser")
+    public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO registerUserDTO) {
         if (userService.userUsernameExists(registerUserDTO.getUsername())) {
             return new ResponseEntity<>("Username already exists!", HttpStatus.NOT_ACCEPTABLE);
         }
@@ -28,6 +28,16 @@ public class AdminController {
         }
 
         return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/updateUser/{uid}")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserActionsDTO updateUserDTO, @PathVariable Long uid) {
+        try {
+            UserDTO updatedUser= userService.updateUser(uid, updateUserDTO);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @DeleteMapping("/deleteUser/{uid}")
