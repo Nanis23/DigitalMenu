@@ -1,5 +1,6 @@
 package com.MenuBackend.MenuBackend.entity;
 
+import com.MenuBackend.MenuBackend.DTO.UserDTO;
 import com.MenuBackend.MenuBackend.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -57,5 +58,17 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDTO getUserDTO() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(uid);
+        userDTO.setUsername(username);
+        userDTO.setEmail(email);
+        userDTO.setProfilePic(profilePic);
+        userDTO.setRole(role);
+        return userDTO;
+
+
     }
 }
