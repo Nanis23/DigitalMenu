@@ -15,6 +15,16 @@ public class AdminController {
 
     private final UserService userService;
 
+    @GetMapping("/userList")
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/user/{uid}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long uid) {
+        UserDTO userDTO = userService.getUserById(uid);
+        return ResponseEntity.ok(userDTO);
+    }
     @PostMapping("/registerUser")
     public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO registerUserDTO) {
         if (userService.userUsernameExists(registerUserDTO.getUsername())) {
