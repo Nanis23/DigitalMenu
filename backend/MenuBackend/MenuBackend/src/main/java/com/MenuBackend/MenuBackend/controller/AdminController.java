@@ -6,10 +6,7 @@ import com.MenuBackend.MenuBackend.services.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -32,4 +29,11 @@ public class AdminController {
 
         return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/deleteUser/{uid}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long uid){
+        userService.deleteUser(uid);
+        return ResponseEntity.ok(null);
+    }
+
 }

@@ -78,4 +78,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findFirstByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }
+
+
+    public void deleteUser(Long uid){
+        userRepository.deleteById(uid);
+    }
 }
