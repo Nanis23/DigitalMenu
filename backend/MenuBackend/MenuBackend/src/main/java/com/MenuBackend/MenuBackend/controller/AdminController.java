@@ -2,7 +2,9 @@ package com.MenuBackend.MenuBackend.controller;
 
 import com.MenuBackend.MenuBackend.DTO.UserActionsDTO;
 import com.MenuBackend.MenuBackend.DTO.UserDTO;
+import com.MenuBackend.MenuBackend.entity.User;
 import com.MenuBackend.MenuBackend.services.User.UserService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +28,18 @@ public class AdminController {
         return ResponseEntity.ok(userDTO);
     }
     @PostMapping("/registerUser")
-    public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO registerUserDTO) {
-        if (userService.userUsernameExists(registerUserDTO.getUsername())) {
+    public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO userDTO) {
+        if (userService.userUsernameExists(userDTO.getUsername())) {
             return new ResponseEntity<>("Username already exists!", HttpStatus.NOT_ACCEPTABLE);
         }
 
-        UserDTO createdUserDTO = userService.createUser(registerUserDTO);
+        User createdUserDTO = userService.createUser(userDTO);
 
         if (createdUserDTO == null) {
             return new ResponseEntity<>("User not created  try again!", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>( userService.mapToDTO(createdUserDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/updateUser/{uid}")

@@ -45,20 +45,15 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public UserDTO createUser(UserActionsDTO registerUserDTO) {
+    public User createUser(UserActionsDTO userDto) {
         User user = new User();
-        user.setUsername(registerUserDTO.getUsername());
-        user.setEmail(registerUserDTO.getEmail());
-        user.setPassword(new BCryptPasswordEncoder().encode(registerUserDTO.getPassword()));
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         user.setRole(UserRoles.USER);
-        user.setProfilePic(registerUserDTO.getProfilePic());
-        User createdUser = userRepository.save(user);
+        user.setProfilePic(userDto.getProfilePic());
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(createdUser.getUid());
-        //return userDTO;
-        return mapToDTO(user);
-
+        return userRepository.save(user);
     }
 
     public UserDTO mapToDTO(User user) {
@@ -72,6 +67,15 @@ public class UserService implements UserDetailsService {
         return dto;
     }
 
+    public User mapToEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setProfilePic(userDTO.getProfilePic());
+        user.setRole(userDTO.getRole());
+        return user;
+    }
+
     public void deleteUser(Long uid){
         userRepository.deleteById(uid);
     }
@@ -82,29 +86,29 @@ public class UserService implements UserDetailsService {
         return userRepository.findFirstByUsername(username).isPresent();
     }
 
-    public UserDTO updateUser(Long uid, UserActionsDTO updateUserDTO) {
+    public UserDTO updateUser(Long uid, UserActionsDTO userDTO) {
         User user= userRepository.findById(uid)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (updateUserDTO.getUsername() != null) {
-            user.setUsername(updateUserDTO.getUsername());
+        if (userDTO.getUsername() != null) {
+            user.setUsername(userDTO.getUsername());
         }
 
-        if (updateUserDTO.getEmail() != null) {
-            user.setEmail(updateUserDTO.getEmail());
+        if (userDTO.getEmail() != null) {
+            user.setEmail(userDTO.getEmail());
         }
 
-        if (updateUserDTO.getPassword() != null){
-            user.setPassword(new BCryptPasswordEncoder().encode(updateUserDTO.getPassword()));
+        if (userDTO.getPassword() != null){
+            user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
         }
 
-        if (updateUserDTO.getProfilePic() != null){
-            user.setProfilePic(updateUserDTO.getProfilePic());
+        if (userDTO.getProfilePic() != null){
+            user.setProfilePic(userDTO.getProfilePic());
         }
 
-        User updatedUser= userRepository.save(user);
+        return mapToDTO(userRepository.save(user));
 
-        return mapToDTO(updatedUser);
+
     }
 
     @Override
@@ -114,12 +118,12 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(User::getUserDTO).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     public UserDTO getUserById(Long uid) {
         Optional<User> optionalUser = userRepository.findById(uid);
-        return optionalUser.map(User::getUserDTO).orElse(null);
+        return optionalUser.map(this::mapToDTO).orElse(null);
     }
 
 
