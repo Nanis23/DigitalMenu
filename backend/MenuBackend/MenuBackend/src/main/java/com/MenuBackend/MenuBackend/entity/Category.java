@@ -21,11 +21,4 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
-    public CategoryDTO getCategoryDTO() {
-        CategoryDTO catDTO = new CategoryDTO();
-        catDTO.setCatId(catId);
-        catDTO.setCatName(catName);
-        return catDTO;
-    }
-
 }
