@@ -21,16 +21,16 @@ public class AdminController {
 
     private final CategoryService categoryService;
 
-    @GetMapping("/userList")
-    public ResponseEntity<?> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
-
-    @GetMapping("/user/{uid}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long uid) {
-        UserDTO userDTO = userService.getUserById(uid);
-        return ResponseEntity.ok(userDTO);
-    }
+//    @GetMapping("/userList")
+//    public ResponseEntity<?> getAllUsers() {
+//        return ResponseEntity.ok(userService.getAllUsers());
+//    }
+//
+//    @GetMapping("/user/{uid}")
+//    public ResponseEntity<UserDTO> getUserById(@PathVariable Long uid) {
+//        UserDTO userDTO = userService.getUserById(uid);
+//        return ResponseEntity.ok(userDTO);
+//    }
     @PostMapping("/registerUser")
     public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO userDTO) {
         if (userService.userUsernameExists(userDTO.getUsername())) {

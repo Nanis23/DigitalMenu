@@ -22,8 +22,6 @@ public class CategoryService {
         category.setCatName(categoryDTO.getCatName());
 
         Category createdCategory = categoryRepository.save(category);
-        CategoryDTO catDTO = new CategoryDTO();
-        catDTO.setCatId(createdCategory.getCatId());
 
         return mapToDTO(createdCategory);
     }
