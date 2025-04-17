@@ -1,7 +1,6 @@
 package com.MenuBackend.MenuBackend.controller;
 
 import com.MenuBackend.MenuBackend.DTO.ProductDTO;
-import com.MenuBackend.MenuBackend.services.Category.CategoryService;
 import com.MenuBackend.MenuBackend.services.Product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
