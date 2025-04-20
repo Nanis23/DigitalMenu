@@ -1,7 +1,11 @@
 package com.MenuBackend.MenuBackend.controller;
 
 import com.MenuBackend.MenuBackend.DTO.ProductDTO;
+import com.MenuBackend.MenuBackend.DTO.UserActionsDTO;
+import com.MenuBackend.MenuBackend.DTO.UserDTO;
+import com.MenuBackend.MenuBackend.entity.User;
 import com.MenuBackend.MenuBackend.services.Product.ProductService;
+import com.MenuBackend.MenuBackend.services.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,50 +16,41 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final ProductService productService;
+    private final UserService userService;
 
-    @PostMapping("/createProduct")
-    public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO){
-
-        if (productService.productNameExist(productDTO.getProdName())) {
-            return new ResponseEntity<>("Product already exists!", HttpStatus.NOT_ACCEPTABLE);
+    @PostMapping("/registerUser")
+    public ResponseEntity<?> registrationRequest(@RequestBody UserActionsDTO userDTO) {
+        if (userService.userUsernameExists(userDTO.getUsername())) {
+            return new ResponseEntity<>("Username already exists!", HttpStatus.NOT_ACCEPTABLE);
         }
 
-        ProductDTO createdProductDTO = productService.createProduct(productDTO);
+        User createdUserDTO = userService.createUser(userDTO);
 
-        if (createdProductDTO == null) {
-            return new ResponseEntity<>("Product not created  try again!", HttpStatus.BAD_REQUEST);
+        if (createdUserDTO == null) {
+            return new ResponseEntity<>("User not created  try again!", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(createdProductDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>( userService.mapToDTO(createdUserDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateProduct/{prodId}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long prodId, @RequestBody ProductDTO productDTO){
+    @PutMapping("/updateUser/{uid}")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserActionsDTO updateUserDTO, @PathVariable Long uid) {
         try {
-            ProductDTO updatedProductDTO = productService.updateProduct(prodId, productDTO);
-            return new ResponseEntity<>(updatedProductDTO, HttpStatus.OK);
+            UserDTO updatedUser= userService.updateUser(uid, updateUserDTO);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    @DeleteMapping("/deleteProduct/{prodId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long prodId){
-        productService.deleteProduct(prodId);
+    @DeleteMapping("/deleteUser/{uid}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long uid){
+        userService.deleteUser(uid);
         return ResponseEntity.ok(null);
     }
 
 
-    @GetMapping("/productsList")
-    public ResponseEntity<?> getAllProducts(){
-        return ResponseEntity.ok(productService.getAllProducts());
-    }
 
-    @GetMapping("/product/{prodId}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long prodId){
-        ProductDTO productDTO = productService.getProductById(prodId);
-        return ResponseEntity.ok(productDTO);
-    }
+
 
 }

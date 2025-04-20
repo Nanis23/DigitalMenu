@@ -9,7 +9,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Data
 @Table(name = "products")
-
 public class Product {
 
     @Id
