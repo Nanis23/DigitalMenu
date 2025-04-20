@@ -1,10 +1,8 @@
 package com.MenuBackend.MenuBackend.controller;
 
-import com.MenuBackend.MenuBackend.DTO.ProductDTO;
 import com.MenuBackend.MenuBackend.DTO.UserActionsDTO;
 import com.MenuBackend.MenuBackend.DTO.UserDTO;
 import com.MenuBackend.MenuBackend.entity.User;
-import com.MenuBackend.MenuBackend.services.Product.ProductService;
 import com.MenuBackend.MenuBackend.services.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
