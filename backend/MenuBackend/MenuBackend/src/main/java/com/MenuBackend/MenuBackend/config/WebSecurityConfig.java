@@ -50,7 +50,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request ->
                         request.requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/menu/**").permitAll()
+                                .requestMatchers("/api/product/productsList").permitAll()
+                                .requestMatchers("/api/category/categoryList").permitAll()
                                 .requestMatchers("/api/user/**").hasAnyAuthority(UserRoles.ADMIN.name())
                                 .requestMatchers("/api/category/**").hasAnyAuthority(UserRoles.ADMIN.name())
                                 .requestMatchers("/api/product/**").hasAnyAuthority(UserRoles.ADMIN.name(), UserRoles.USER.name())
