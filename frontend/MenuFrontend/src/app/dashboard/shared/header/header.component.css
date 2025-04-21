@@ -1,0 +1,31 @@
+/* admin-header.component.css */
+
+/* Style the navbar */
+.navbar {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .btn {
+  font-size: 1rem;
+}
+
+.navbar .btn-outline-danger {
+  margin-right: 15px; /* Space between the logout button and username */
+}
+
+.navbar .navbar-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.ms-auto {
+  margin-left: auto; /* Align username to the right */
+}

@@ -1,0 +1,90 @@
+/* General login container styles */
+.login-wrapper {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Default light mode */
+.login-card h3,
+.login-card label,
+.login-card .form-control,
+.login-card .btn,
+.login-card .alert {
+  transition: all 0.3s ease-in-out;
+}
+
+/* DARK MODE STYLES */
+.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+.dark-mode .login-card {
+  background-color: #1f1f1f;
+  color: #f1f1f1;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .login-card h3 {
+  color: #ffffff;
+}
+
+.dark-mode .login-card label {
+  color: #cccccc;
+}
+
+.dark-mode .form-control {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #f1f1f1;
+}
+
+.dark-mode .form-control::placeholder {
+  color: #aaa;
+}
+
+.dark-mode .form-control:focus {
+  background-color: #2a2a2a;
+  border-color: #666;
+  box-shadow: none;
+  color: #f1f1f1;
+}
+
+.dark-mode .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004999;
+}
+
+.dark-mode .alert-success {
+  background-color: #204d20;
+  color: #d4edda;
+  border-color: #155724;
+}
+
+.dark-mode .alert-danger {
+  background-color: #4d1f1f;
+  color: #f8d7da;
+  border-color: #721c24;
+}
+
+/* Optional: Toggle button styling */
+.dark-mode .btn-outline-secondary {
+  color: #f1f1f1;
+  border-color: #ccc;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+  background-color: #444;
+  border-color: #bbb;
+}

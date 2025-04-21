@@ -1,12 +1,59 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import {
+  RouterLink,
+  RouterOutlet,
+  Router,
+  NavigationEnd,
+} from '@angular/router';
+import { StorageService } from './auth/storage/storage.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserComponentComponent } from './dashboard/user/user-component/user-component.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    UserComponentComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'MenuFrontend';
+
+  isCustomerLogedIn: boolean = false;
+  isAdminLogedIn: boolean = false;
+
+  constructor(private router: Router) {}
+
+  isLoginPage: boolean = false;
+
+  ngOnInit() {
+    this.updateLoginStatus();
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateLoginStatus();
+
+        // update page check
+        this.isLoginPage = this.router.url === '/login';
+      }
+    });
+  }
+
+  updateLoginStatus() {
+    this.isAdminLogedIn = StorageService.isAdminLogedIn();
+    this.isCustomerLogedIn = StorageService.isUserLogedIn();
+  }
+
+  logout() {
+    StorageService.logout();
+    this.router.navigateByUrl('/login');
+  }
 }
