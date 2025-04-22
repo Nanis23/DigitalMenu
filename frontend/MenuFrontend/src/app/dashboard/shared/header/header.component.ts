@@ -1,23 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../../../auth/storage/storage.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+
+
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  // username: string = '';
-  // constructor(private router: Router) {}
-  // ngOnInit(): void {
-  //   const user = StorageService.getUser();
-  //   this.username = user ? user.username : '';
-  // }
-  // logout(): void {
-  //   StorageService.logout();
-  //   this.router.navigateByUrl('/login');
-  // }
+ 
+
+  dropdownOpen = false;  // Variabli për të menaxhuar hapjen e dropdown-it
+
+  // Funksioni për të hapur dhe mbyllur dropdown-in
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  // Funksioni për shfaqjen e profilit
+  viewProfile(event: MouseEvent) {
+    event.stopPropagation(); // Ndalon ngjarjen të shkojë më tutje
+    console.log('Shiko Profilin');
+    this.dropdownOpen = false;  // Mbyll dropdown-in pas klikimit
+  }
+
+  // Funksioni për logout
+  logout(event: MouseEvent) {
+    event.stopPropagation(); // Ndalon ngjarjen të shkojë më tutje
+    console.log('Logout clicked');
+    this.dropdownOpen = false;  // Mbyll dropdown-in pas klikimit
+  }
 }

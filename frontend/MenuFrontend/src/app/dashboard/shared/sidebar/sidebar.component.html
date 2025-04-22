@@ -1,1 +1,42 @@
-<p>sidebar works!</p>
+<nav class="sidebar">
+    <ul class="menu">
+        
+        <li>
+            <a href="dashboard" class="menu-title direct-link">Dashboard</a>
+          </li>
+
+      <!-- Menu: User -->
+      <li>
+        <div class="menu-title" (click)="toggleSubMenu('user')">
+          User
+        </div>
+        <ul class="submenu" *ngIf="activeMenus['user']">
+          <li><a href="#">Admin</a></li>
+          <li><a href="#">Menaxho User</a></li>
+        </ul>
+      </li>
+  
+      <!-- Menu: Product -->
+      <li>
+        <div class="menu-title" (click)="toggleSubMenu('product')">
+          Product
+        </div>
+        <ul class="submenu" *ngIf="activeMenus['product']">
+          <li><a href="#">Shiko</a></li>
+          <li><a href="#">Menaxho</a></li>
+        </ul>
+      </li>
+  
+      <!-- Menu: Category -->
+      <li>
+        <div class="menu-title" (click)="toggleSubMenu('category')">
+          Category
+        </div>
+        <ul class="submenu" *ngIf="activeMenus['category']">
+          <li><a href="#">Shiko</a></li>
+          <li><a href="#">Menaxho</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  

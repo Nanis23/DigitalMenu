@@ -1,31 +1,62 @@
-/* admin-header.component.css */
-
-/* Style the navbar */
-.navbar {
-  background-color: #f8f9fa;
-  padding: 1rem;
-}
-
-.navbar .container-fluid {
+/* General header styles */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #1e1e2f;
+  color: white;
+  padding: 10px 20px;
 }
 
-.navbar .btn {
-  font-size: 1rem;
-}
-
-.navbar .btn-outline-danger {
-  margin-right: 15px; /* Space between the logout button and username */
-}
-
-.navbar .navbar-text {
-  font-size: 1.1rem;
+.logo {
   font-weight: bold;
-  color: #333;
+  font-size: 20px;
 }
 
-.ms-auto {
-  margin-left: auto; /* Align username to the right */
+.profile-dropdown {
+  position: relative;
 }
+
+/* Button for profile */
+.profile-button {
+  background-color: #3e3e5e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10; /* Sigurohet që butoni është mbi elementët e tjerë */
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  width: 150px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: none; /* Sigurohuni që dropdown është i fshehur në fillim */
+}
+
+/* Drop-down item styles */
+.dropdown-menu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.profile-dropdown .dropdown-menu {
+  display: block;
+}
+

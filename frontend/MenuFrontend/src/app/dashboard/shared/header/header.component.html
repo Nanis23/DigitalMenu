@@ -1,11 +1,13 @@
-<nav class="navbar bg-body-tertiary">
-  <div class="container-fluid">
-    <!-- Logout Button on the left -->
-    <button class="btn btn-outline-danger me-2" type="button">Logout</button>
+<header class="header">
+  <!-- Logo -->
+  <div class="logo">DIGITAL MENU</div>
 
-    <!-- Username on the right -->
-    <div class="ms-auto">
-      <span class="navbar-text"></span>
+  <!-- Dropdown Profile -->
+  <div class="profile-dropdown">
+    <button class="profile-button" (click)="toggleDropdown()">Profili</button>
+    <div class="dropdown-menu" *ngIf="dropdownOpen">
+      <a href="user" (click)="viewProfile($event)">Shiko Profilin</a>
+      <a href="login" (click)="logout($event)">Logout</a>
     </div>
   </div>
-</nav>
+</header>

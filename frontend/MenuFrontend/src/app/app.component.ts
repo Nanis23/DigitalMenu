@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-  RouterLink,
-  RouterOutlet,
   Router,
   NavigationEnd,
 } from '@angular/router';
@@ -14,8 +12,6 @@ import { UserComponentComponent } from './dashboard/user/user-component/user-com
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
-    RouterLink,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
