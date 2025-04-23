@@ -1,0 +1,49 @@
+/* Ensure full height for body */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Layout as column: header -> content -> footer */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header and footer take only their space */
+app-header,
+app-footer {
+  flex-shrink: 0;
+}
+
+/* Middle section takes all remaining height */
+.main-section {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Sidebar only takes needed height */
+app-sidebar {
+  flex-shrink: 0;
+}
+
+/* Make sure sidebar uses full available height */
+.sidebar {
+  height: 100%;
+  background-color: #1e1e2f;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 220px;
+  overflow: auto; /* Only scrolls when it actually overflows */
+}
+
+/* Main content grows to fill */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
