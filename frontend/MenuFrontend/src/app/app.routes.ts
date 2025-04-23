@@ -10,8 +10,6 @@ import { AddUserComponent } from './dashboard/user/add-user/add-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
 export const routes: Routes = [
   {
     path: '',
@@ -23,20 +21,24 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./dashboard/admin/admin.module').then((m) => m.AdminModule),
   },
-  { path: 'user', component: UserComponentComponent },
+  {
+    path: 'user',
+    component: UserComponentComponent,
+    children: [{ path: 'add-user', component: AddUserComponent }],
+  },
   { path: 'header', component: HeaderComponent },
-  { path: 'sidebar',component: SidebarComponent},
-  { path: 'footer',component: FooterComponent},
-  { path: 'add-user',component: AddUserComponent},
+  { path: 'sidebar', component: SidebarComponent },
+  { path: 'footer', component: FooterComponent },
+  { path: 'add-user', component: AddUserComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),
+  imports: [
+    RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 
   exports: [RouterModule],
-  
 })
 export class AppRoutes {}
