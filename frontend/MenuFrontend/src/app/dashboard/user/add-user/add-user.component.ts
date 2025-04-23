@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../../shared/header/header.component';
-import { SidebarComponent } from '../../../shared/sidebar/sidebar.component';
-import { FooterComponent } from '../../../shared/footer/footer.component';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
