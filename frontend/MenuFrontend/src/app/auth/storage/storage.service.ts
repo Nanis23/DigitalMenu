@@ -9,6 +9,14 @@ const USER = 'user';
 export class StorageService {
   constructor() {}
 
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      // Code accessing localStorage here
+      const user = StorageService.getUser();
+      // Other logic
+    }
+  }
+
   static saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.setItem(TOKEN, token);

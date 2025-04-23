@@ -4,11 +4,18 @@ import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { StorageService } from './auth/storage/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponentComponent } from './dashboard/user/user-component/user-component.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    LoginComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
