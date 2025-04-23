@@ -1,9 +1,9 @@
-<!-- app.component.html -->
+<ng-container *ngIf="isLoginPage">
+  <div
+    class="container d-flex justify-content-center align-items-center vh-100"
+  >
+    <button class="btn btn-primary" routerLink="/login">Login</button>
+  </div>
+</ng-container>
 
-<!-- <div
-  *ngIf="!isLoginPage"
-  class="container d-flex justify-content-center align-items-center vh-100"
->
-  <button class="btn btn-primary" routerLink="/login">Login</button>
-</div> -->
-<app-user-component></app-user-component>
+<router-outlet></router-outlet>

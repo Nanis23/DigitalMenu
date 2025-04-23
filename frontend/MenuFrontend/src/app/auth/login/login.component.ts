@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { StorageService } from '../storage/storage.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -46,35 +46,38 @@ export class LoginComponent implements OnInit {
 
         if (res.userId != null) {
           const user = {
-            id: res.userId,
+            username: res.username || '', // use actual username if available
             role: res.userRole,
+            uId: res.userId,
           };
 
           StorageService.saveUser(user);
           StorageService.saveToken(res.jwtToken);
 
-          if (StorageService.isAdminLogedIn()) {
+          const role = StorageService.getUserRole();
+
+          if (role === 'ADMIN') {
             this.msg = 'Login successful! Welcome, admin!';
             this.msgType = 'success';
-
             setTimeout(() => {
-              this.router.navigateByUrl('/dashboard/admin');
+              this.router.navigate(['/user']);
             }, 1500);
-          } else if (StorageService.isUserLogedIn()) {
+          } else if (role === 'USER') {
             this.msg = 'Login successful! Welcome, user!';
             this.msgType = 'success';
-
             setTimeout(() => {
-              this.router.navigateByUrl('/dashboard/user');
+              this.router.navigate(['/user']);
             }, 1500);
           } else {
-            this.msg = 'Invalid Credentials. Please try again.';
+            this.msg = 'Invalid role. Please contact support.';
             this.msgType = 'danger';
           }
         }
       },
       error: (err) => {
         console.error(err);
+        this.msg = 'Login failed. Please try again.';
+        this.msgType = 'danger';
       },
     });
   }

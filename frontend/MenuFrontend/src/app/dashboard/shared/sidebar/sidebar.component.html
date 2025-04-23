@@ -5,12 +5,12 @@
     </li>
 
     <!-- Menu: User -->
-    <li>
+    <li *ngIf="role === 'ADMIN'">
       <div class="menu-title" (click)="toggleSubMenu('user')">User</div>
       <ul class="submenu" *ngIf="activeMenus['user']">
-        <li><a href="#">Admin</a></li>
-        <li><a routerLink="add-user">Add User</a></li>
-        <li><a href="#">Manage User</a></li>
+        <li><a routerLink="/user">Admin</a></li>
+        <li><a routerLink="/user/add-user">Add User</a></li>
+        <li><a routerLink="#">Manage User</a></li>
       </ul>
     </li>
 

@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  Router,
-  NavigationEnd,
-} from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { StorageService } from './auth/storage/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponentComponent } from './dashboard/user/user-component/user-component.component';
@@ -11,12 +8,7 @@ import { UserComponentComponent } from './dashboard/user/user-component/user-com
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    UserComponentComponent,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -38,7 +30,8 @@ export class AppComponent {
         this.updateLoginStatus();
 
         // update page check
-        this.isLoginPage = this.router.url === '/login';
+        this.isLoginPage =
+          this.router.url === '/login' || this.router.url === '/';
       }
     });
   }
