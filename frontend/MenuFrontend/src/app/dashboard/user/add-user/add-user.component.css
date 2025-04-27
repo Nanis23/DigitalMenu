@@ -1,0 +1,73 @@
+/* Center card a little more */
+.custom-container {
+  margin-top: 80px;
+}
+
+/* Card customizations */
+.custom-card {
+  border-radius: 15px;
+  background-color: #fefefe; /* More pure white */
+  border: 1px solid #dee2e6;
+  font-family: "Times New Roman", Times, serif; /* Elegant font */
+}
+
+/* Title customizations */
+.custom-title {
+  color: #6f42c1; /* A rich purple instead of blue */
+  font-weight: 700;
+  font-size: 28px;
+}
+
+/* Button customization */
+.custom-btn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: #6f42c1;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #5a32a3; /* Darker purple on hover */
+  transform: scale(1.03);
+}
+
+/* Make form inputs nicer */
+.form-control {
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* Increase width of the form */
+.col-md-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #1e1e2f;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+
+.dark-mode input {
+  background-color: #2d2d3a;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+.dark-mode input::placeholder {
+  color: #aaa;
+}
+
+.dark-mode .custom-btn {
+  background-color: #8a63d2;
+}
+
+.dark-mode .custom-btn:hover {
+  background-color: #724ab6;
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+    width: 80%; /* Make it responsive for small screens */
+  }
+}

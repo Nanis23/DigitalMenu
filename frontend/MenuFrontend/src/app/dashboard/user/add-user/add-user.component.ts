@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -9,10 +10,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from '../../../auth/storage/storage.service';
 
 @Component({
   selector: 'app-add-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.css',
 })
@@ -28,12 +30,33 @@ export class AddUserComponent {
     });
   }
 
+  isDarkMode: boolean = false;
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+  }
+
   onSubmit() {
     if (this.userForm.valid) {
+      // Retrieve JWT token from StorageService
+      const token = StorageService.getToken();
+
+      if (!token) {
+        alert('No JWT token found! Please log in again.');
+        return;
+      }
+
+      // Set the Authorization header with the JWT token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+
       this.http
         .post(
           'http://localhost:8080/api/user/registerUser',
-          this.userForm.value
+          this.userForm.value,
+          { headers }
         )
         .subscribe({
           next: (res) => {
@@ -44,6 +67,8 @@ export class AddUserComponent {
             alert(err.error || 'Something went wrong!');
           },
         });
+    } else {
+      console.log('Form is invalid');
     }
   }
 }
